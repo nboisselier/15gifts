@@ -16,7 +16,16 @@ git clone git@github.com:nboisselier/15gifts.git
 vagrant up --provision
 ~~~
 
-* Deploys
+* Deployment
 ~~~
-vagrant up --provision
+vagrant up
+~~~
+
+* Test
+
+* Web: http://127.0.0.1:8080
+
+* SSH
+~~~
+vagrant ssh
 ~~~

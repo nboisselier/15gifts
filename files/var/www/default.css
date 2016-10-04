@@ -1,0 +1,39 @@
+/*
+ NB 04.10.16: default.css
+ */
+html {
+  background-color: #ddd;
+  font: 100% 'Trebuchet MS', sans-serif;
+}
+
+body {
+  color: #000;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+table {
+  border-collapse: collapse;
+  border: solid 1px #ccc;
+  -webkit-appearance: none;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+td, th {
+  border: solid 1px #ccc;
+  padding: 0.4em;
+}
+
+div {
+  font-size: small;
+  text-align: right;
+}
