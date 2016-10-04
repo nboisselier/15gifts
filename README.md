@@ -1,12 +1,25 @@
 15gifts
-=============
+=======
 
-## Perl Version
+Perl Version
+------------
 
-### Backend Developer with DevOps Technical Test
+Backend Developer with DevOps Technical Test
+--------------------------------------------
 
 Complete in 8 hours.
 
 By Nicolas Boisselier <nicolas.boisselier@gmail.com>
 
-Date: 04.10.16
+### Instructions ###
+
+* Download
+~~~
+git clone git@github.com:nboisselier/15gifts.git
+vagrant up --provision
+~~~
+
+* Deploys
+~~~
+vagrant up --provision
+~~~
