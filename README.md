@@ -14,7 +14,7 @@ Instructions
 
 ### Download ###
 ~~~
-git clone https://github.com/nboisselier/15gifts.git
+git clone https://github.com/nboisselier/15gifts.git && 15gifts/
 ~~~
 
 ### Deployment ###
