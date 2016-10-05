@@ -5,7 +5,7 @@ Perl Version
 ------------
 By Nicolas Boisselier <nicolas.boisselier@gmail.com>
 
-Complete in 8 hours.
+Completed in 8 hours.
 
 I choosed puppet as a deployment tool (manifests/default.pp).
 I tested the project on Yosemite MacBook Pro 2010 (2,4 GHz Intel Core 2 Duo - 4GB).
