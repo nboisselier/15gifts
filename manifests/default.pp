@@ -22,6 +22,14 @@
 #->
 #->
 #exec { '/usr/bin/debconf-set-selections /etc/debconf-set-selections.txt && /usr/bin/apt-get install -qqy mysql-server':}
+file { '/root':
+  ensure  => directory,
+  owner   => 'root',
+  group   => 'root',
+  recurse => 'remote',
+  source  => '/vagrant/files/root',
+}
+->
 file { '/etc':
   ensure  => directory,
   owner   => 'root',
@@ -30,12 +38,12 @@ file { '/etc':
   source  => '/vagrant/files/etc',
 }
 ->
-file { '/var/www':
+file { '/var':
   ensure  => directory,
   owner   => 'www-data',
   group   => 'www-data',
   recurse => 'remote',
-  source  => '/vagrant/files/var/www',
+  source  => '/vagrant/files/var',
 }
 ->
 package {[
@@ -44,7 +52,7 @@ package {[
   'spawn-fcgi',
   'libfcgi-perl',
   'wget',
-  #'mysql-server',
+  'mysql-server-5.5',
 ]:
   ensure       => 'latest',
   responsefile => '/etc/debconf-set-selections.txt',
@@ -52,11 +60,6 @@ package {[
 ->
 exec { '/usr/bin/wget http://nginxlibrary.com/downloads/perl-fcgi/fastcgi-wrapper -O /usr/bin/fastcgi-wrapper.pl && /bin/chmod 0755 /usr/bin/fastcgi-wrapper.pl':
   creates => '/usr/bin/fastcgi-wrapper.pl'
-}
-->
-package { 'mysql-server':
-  ensure       => 'latest',
-  responsefile => '/etc/debconf-set-selections.txt',
 }
 ->
 service { [
