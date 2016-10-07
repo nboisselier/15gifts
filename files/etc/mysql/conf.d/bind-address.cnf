@@ -1,3 +1,0 @@
-# Insecure only for DEV !
-[mysqld]
-bind-address = 0.0.0.0
