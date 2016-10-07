@@ -8,11 +8,17 @@
 # By Nicolas Boisselier <nicolas.boisselier@gmail.com>
 # Date: 04.10.16
 #
+# export DEBIAN_FRONTEND=noninteractive; debconf-set-selections < /etc/debconf-set-selections.txt ;apt-get install -qqy mysql-server
+#
 ##############################################################################
 $mysql_password = 'change_me'
 
 Exec { path => '/bin:/usr/bin:/sbin:/usr/sbin'}
 
+# NB 07.10.16 exec { 'upgrade':
+# NB 07.10.16   command => 'apt-get update -qqy && apt-get upgrade -qqy',
+# NB 07.10.16 }
+# NB 07.10.16 ->
 file { '/etc':
   ensure  => directory,
   owner   => 'root',
@@ -44,6 +50,7 @@ package {[
   'spawn-fcgi',
   'libfcgi-perl',
   'wget',
+  'debconf-utils',
 ]:
   ensure       => 'latest',
 }
@@ -59,44 +66,28 @@ service { [
   ensure => 'running'
 }
 ->
-file { '/root/.my.cnf':
-  content => "### MANAGED BY PUPPET ###
-[client]
-password=${mysql_password}
-"
-}
-->
 file { '/etc/debconf-set-selections.txt':
   mode    => '0600',
-  content => "### MANAGED BY PUPPET ###
-mysql-server            mysql-server/root_password_again     password ${mysql_password}
-mysql-server            mysql-server/root_password           password ${mysql_password}
-mysql-server-5.5        mysql-server/root_password_again     password ${mysql_password}
-mysql-server-5.5        mysql-server/root_password           password ${mysql_password}
-mysql-server-5.5        mysql-server-5.5/root_password_again password ${mysql_password}
-mysql-server-5.5        mysql-server-5.5/root_password       password ${mysql_password}
+  content => "
+mysql-server-5.5        mysql-server/root_password               password ${mysql_password}
+mysql-server-5.5        mysql-server/root_password_again         password ${mysql_password}
 "
 }
 ->
 package { 'mysql-server' :
   ensure          => 'present',
   responsefile    => '/etc/debconf-set-selections.txt',
-  #install_options => ['--allow-unauthenticated', '-f'],
 }
-#class { '::mysql::server':
-#  root_password           => $mysql_password,
-#  remove_default_accounts => true,
-#}
-#->
-#service { 'mysql':
-#  enable => true,
-#  ensure => running,
-#}
-#
-#exec { 'mysqlpasswd':
-#  command => "mysqladmin -u root password ${mysql_password}",
-#  unless => 'mysqladmin -uroot -proot status',
-#  notify => [Service['mysql']],
-#  require => [Package["mysql-server"]],
-#}
+->
+file { '/root/.my.cnf':
+  content => "### MANAGED BY PUPPET ###
+[client]
+password=${mysql_password}
+"
+}
+# NB 07.10.16 ->
+# NB 07.10.16 exec { 'mysqlpasswd':
+# NB 07.10.16   command => "mysqladmin -u root password ${mysql_password}",
+# NB 07.10.16   unless => "mysqladmin -uroot -p${mysql_password} status",
+# NB 07.10.16 }
 # NB 07.10.16 ->exec { 'debconf-set-selections /etc/debconf-set-selections.txt && apt-get install -qqy mysql-server': environment => 'DEBIAN_FRONTEND=noninteractive',path=>'/bin:/usr/bin:/sbin:/usr/sbin'}

@@ -8,7 +8,7 @@ my $page = CGI->new;
 print $page->header(-charset=>'utf-8',-content_type=>'text/html');
 
 # TODO put crendentials into an external files with prtected permission
-our @DBI = ("DBI:mysql:dbname=mysql;mysql_socket=/var/run/mysqld/mysqld.sock","root","change_me");
+our @DBI = ("DBI:mysql:dbname=mysql;mysql_socket=/var/run/mysqld/mysqld.sock","root","");
 #our @DBI = ("DBI:mysql:dbname=mysql;host=192.168.33.10","root","");
 
 our $sql = "SELECT * FROM help_keyword LIMIT 10";
