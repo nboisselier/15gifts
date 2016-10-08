@@ -6,12 +6,14 @@ Vagrant.configure("2") do |config|
   config.vm.provision "puppet" do |puppet|
     puppet.options = "--verbose"
   end
+  #config.vm.provision "shell", path: "install-system-libraries.sh"
 
   config.vm.box = "ubuntu/trusty32"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.memory = "512"
+    vb.cpus = 1
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
