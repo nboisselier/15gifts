@@ -12,6 +12,7 @@ our @DBI = ("DBI:mysql:dbname=mysql;mysql_socket=/var/run/mysqld/mysqld.sock","r
 #our @DBI = ("DBI:mysql:dbname=mysql;host=192.168.33.10","root","");
 
 our $sql = "SELECT * FROM help_keyword LIMIT 10";
+our $title = 'Print first records of table help_keyword';
 
 my $db = DBI->connect(@DBI);
 if (!$db) {
@@ -24,10 +25,10 @@ if (!$db) {
 
 print 
   $page->start_html(
-    -title => 'help_keyword',
+    -title => $title,
     -style => {'src'=>'/default.css'},
   ),
-  $page->h1('Print first records of table help_keyword'),
+  $page->h1($title),
 ;
 
 my $st = $db->prepare($sql);
