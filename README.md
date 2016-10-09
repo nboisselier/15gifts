@@ -9,6 +9,12 @@ Completed in 8 hours.
 
 I choosed puppet as a deployment tool (manifests/default.pp).
 
+Quick install:
+
+~~~
+git clone git@github.com:nboisselier/15gifts.git && cd 15gifts && vagrant up && curl localhost:8080
+~~~
+
 Instructions
 ------------
 
