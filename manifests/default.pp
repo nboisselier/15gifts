@@ -50,5 +50,6 @@ service { [
   'nginx',
   'perl-fcgi',
 ]: 
-  ensure => 'running'
+  ensure => 'running',
+  enable => true,
 }
